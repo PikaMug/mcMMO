@@ -139,37 +139,31 @@ public class TextComponentFactory {
         TextComponent.Builder webTextComponent;
 
         switch (webLinks) {
-            case WEBSITE -> {
+            case WEBSITE:
                 webTextComponent = Component.text().content(LocaleLoader.getString("JSON.Hover.AtSymbolURL"));
                 TextUtils.addChildWebComponent(webTextComponent, "Web");
                 webTextComponent.clickEvent(getUrlClickEvent(McMMOUrl.urlWebsite));
-            }
-            case SPIGOT -> {
+            case SPIGOT:
                 webTextComponent = Component.text().content(LocaleLoader.getString("JSON.Hover.AtSymbolURL"));
                 TextUtils.addChildWebComponent(webTextComponent, "Spigot");
                 webTextComponent.clickEvent(getUrlClickEvent(McMMOUrl.urlSpigot));
-            }
-            case DISCORD -> {
+            case DISCORD:
                 webTextComponent = Component.text().content(LocaleLoader.getString("JSON.Hover.AtSymbolURL"));
                 TextUtils.addChildWebComponent(webTextComponent, "Discord");
                 webTextComponent.clickEvent(getUrlClickEvent(McMMOUrl.urlDiscord));
-            }
-            case PATREON -> {
+            case PATREON:
                 webTextComponent = Component.text().content(LocaleLoader.getString("JSON.Hover.AtSymbolURL"));
                 TextUtils.addChildWebComponent(webTextComponent, "Patreon");
                 webTextComponent.clickEvent(getUrlClickEvent(McMMOUrl.urlPatreon));
-            }
-            case WIKI -> {
+            case WIKI:
                 webTextComponent = Component.text().content(LocaleLoader.getString("JSON.Hover.AtSymbolURL"));
                 TextUtils.addChildWebComponent(webTextComponent, "Wiki");
                 webTextComponent.clickEvent(getUrlClickEvent(McMMOUrl.urlWiki));
-            }
-            case HELP_TRANSLATE -> {
+            case HELP_TRANSLATE:
                 webTextComponent = Component.text().content(LocaleLoader.getString("JSON.Hover.AtSymbolURL"));
                 TextUtils.addChildWebComponent(webTextComponent, "Lang");
                 webTextComponent.clickEvent(getUrlClickEvent(McMMOUrl.urlTranslate));
-            }
-            default -> webTextComponent = Component.text().content("NOT DEFINED");
+            default: webTextComponent = Component.text().content("NOT DEFINED");
         }
 
         TextUtils.addNewHoverComponentToTextComponent(webTextComponent, getUrlHoverEvent(webLinks));
@@ -182,45 +176,39 @@ public class TextComponentFactory {
         TextComponent.Builder componentBuilder = Component.text().content(webLinks.getNiceTitle());
 
         switch (webLinks) {
-            case WEBSITE -> {
+            case WEBSITE:
                 addUrlHeaderHover(webLinks, componentBuilder);
                 componentBuilder.append(Component.newline()).append(Component.newline());
                 componentBuilder.append(Component.text(webLinks.getLocaleDescription(), NamedTextColor.GREEN));
                 componentBuilder.append(Component.text("\nDev Blogs, and information related to mcMMO can be found here", NamedTextColor.GRAY));
-            }
-            case SPIGOT -> {
+            case SPIGOT:
                 addUrlHeaderHover(webLinks, componentBuilder);
                 componentBuilder.append(Component.newline()).append(Component.newline());
                 componentBuilder.append(Component.text(webLinks.getLocaleDescription(), NamedTextColor.GREEN));
                 componentBuilder.append(Component.text("\nI post regularly in the discussion thread here!", NamedTextColor.GRAY));
-            }
-            case PATREON -> {
+            case PATREON:
                 addUrlHeaderHover(webLinks, componentBuilder);
                 componentBuilder.append(Component.newline()).append(Component.newline());
                 componentBuilder.append(Component.text(webLinks.getLocaleDescription(), NamedTextColor.GREEN));
                 componentBuilder.append(Component.newline());
                 componentBuilder.append(Component.text("Show support by buying me a coffee :)", NamedTextColor.GRAY));
-            }
-            case WIKI -> {
+            case WIKI:
                 addUrlHeaderHover(webLinks, componentBuilder);
                 componentBuilder.append(Component.newline()).append(Component.newline());
                 componentBuilder.append(Component.text(webLinks.getLocaleDescription(), NamedTextColor.GREEN));
                 componentBuilder.append(Component.newline());
                 componentBuilder.append(Component.text("I'm looking for more wiki staff, contact me on our discord!", NamedTextColor.DARK_GRAY));
-            }
-            case DISCORD -> {
+            case DISCORD:
                 addUrlHeaderHover(webLinks, componentBuilder);
                 componentBuilder.append(Component.newline()).append(Component.newline());
                 componentBuilder.append(Component.text(webLinks.getLocaleDescription(), NamedTextColor.GREEN));
-            }
-            case HELP_TRANSLATE -> {
+            case HELP_TRANSLATE:
                 addUrlHeaderHover(webLinks, componentBuilder);
                 componentBuilder.append(Component.newline()).append(Component.newline());
                 componentBuilder.append(Component.text(webLinks.getLocaleDescription(), NamedTextColor.GREEN));
                 componentBuilder.append(Component.newline());
                 componentBuilder.append(Component.text("You can use this website to help translate mcMMO into your language!" +
                         "\nIf you want to know more contact me in discord.", NamedTextColor.DARK_GRAY));
-            }
         }
 
         return componentBuilder.build();

@@ -155,7 +155,7 @@ public class RepairManager extends SkillManager {
                         .findFirst();
 
                 // Fail out with "you need material" if we don't find a suitable alternative.
-                if (possibleMaterial.isEmpty()) {
+                if (!possibleMaterial.isPresent()) {
                     String prettyName = repairable.getRepairMaterialPrettyName() == null ? StringUtils.getPrettyItemString(repairMaterial) : repairable.getRepairMaterialPrettyName();
 
                     String materialsNeeded = "";

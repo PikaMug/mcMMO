@@ -1059,7 +1059,7 @@ public final class SQLDatabaseManager implements DatabaseManager {
                     "WHERE `TABLE_SCHEMA`='" + database + "'\n" +
                     "  AND `TABLE_NAME`='" + tableName + "'\n" +
                     "  AND `COLUMN_NAME`='" + columnName + "'";
-            var resultSet = createStatement.executeQuery(sql);
+            ResultSet resultSet = createStatement.executeQuery(sql);
             return resultSet.next();
         } catch (SQLException e) {
             logger.info("Failed to check if column exists in table " + tableName + " for column " + columnName);
@@ -1081,11 +1081,13 @@ public final class SQLDatabaseManager implements DatabaseManager {
     }
 
     Connection getConnection(PoolIdentifier identifier) throws SQLException {
-        Connection connection = switch (identifier) {
-            case LOAD -> loadPool.getConnection();
-            case MISC -> miscPool.getConnection();
-            case SAVE -> savePool.getConnection();
-        };
+        Connection connection;
+        switch (identifier) {
+            case LOAD: connection = loadPool.getConnection(); break;
+            case MISC: connection = miscPool.getConnection(); break;
+            case SAVE: connection = savePool.getConnection(); break;
+            default: connection = null;
+        }
         if (connection == null) {
             throw new RuntimeException("getConnection() for " + identifier.name().toLowerCase(Locale.ENGLISH) + " pool timed out.  Increase max connections settings.");
         }

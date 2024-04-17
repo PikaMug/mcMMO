@@ -576,11 +576,12 @@ public final class FlatFileDatabaseManager implements DatabaseManager {
      * @return a profile with the targets data or an unloaded profile if no data was found
      */
     private @NotNull PlayerProfile processUserQuery(@NotNull UserQuery userQuery) throws RuntimeException {
-        return switch (userQuery.getType()) {
-            case UUID_AND_NAME -> queryByUUIDAndName((UserQueryFull) userQuery);
-            case UUID -> queryByUUID((UserQueryUUID) userQuery);
-            case NAME -> queryByName((UserQueryNameImpl) userQuery);
-        };
+        switch (userQuery.getType()) {
+            case UUID_AND_NAME: return queryByUUIDAndName((UserQueryFull) userQuery);
+            case UUID: return queryByUUID((UserQueryUUID) userQuery);
+            case NAME: return queryByName((UserQueryNameImpl) userQuery);
+            default: return null;
+        }
     }
 
     private @NotNull PlayerProfile queryByName(@NotNull UserQueryName userQuery) {

@@ -125,9 +125,10 @@ public final class EventUtils {
         if(Misc.isNPCEntityExcludingVillagers(entity))
             return false;
 
-        if (!entity.isValid() || !(entity instanceof LivingEntity livingEntity)) {
+        if (!entity.isValid() || !(entity instanceof LivingEntity)) {
             return false;
         }
+        LivingEntity livingEntity = (LivingEntity)entity;
 
         if (CombatUtils.isInvincible(livingEntity, damage)) {
             return false;
@@ -338,8 +339,8 @@ public final class EventUtils {
         BlockBreakEvent fakeBlockBreakEvent = null;
 
         switch (eventType) {
-            case FAKE -> fakeBlockBreakEvent = new FakeBlockBreakEvent(block, player);
-            case TREE_FELLER -> fakeBlockBreakEvent = new TreeFellerBlockBreakEvent(block, player);
+            case FAKE: fakeBlockBreakEvent = new FakeBlockBreakEvent(block, player); break;
+            case TREE_FELLER: fakeBlockBreakEvent = new TreeFellerBlockBreakEvent(block, player);
         }
         pluginManager.callEvent(fakeBlockBreakEvent);
         return !damageEvent.isCancelled() && !fakeBlockBreakEvent.isCancelled();

@@ -37,8 +37,8 @@ public class LevelUpBroadcastPredicate<T extends CommandSender> implements Predi
             return false;
         }
 
-        if(t instanceof Player listeningPlayer) {
-
+        if(t instanceof Player) {
+            Player listeningPlayer = (Player)t;
             //Party Member Check
             if(mcMMO.p.getGeneralConfig().isLevelUpBroadcastsPartyMembersOnly()) {
                 McMMOPlayer mmoListeningPlayer = UserManager.getPlayer(listeningPlayer);

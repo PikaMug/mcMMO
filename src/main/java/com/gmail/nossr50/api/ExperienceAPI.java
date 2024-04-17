@@ -12,6 +12,7 @@ import com.gmail.nossr50.mcMMO;
 import com.gmail.nossr50.util.player.UserManager;
 import com.gmail.nossr50.util.skills.CombatUtils;
 import com.gmail.nossr50.util.skills.SkillTools;
+import com.google.common.collect.ImmutableList;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.LivingEntity;
@@ -704,7 +705,7 @@ public final class ExperienceAPI {
         PrimarySkillType skill = getSkillType(skillType);
 
         if (SkillTools.isChildSkill(skill)) {
-            var parentSkills = mcMMO.p.getSkillTools().getChildSkillParents(skill);
+            ImmutableList<PrimarySkillType> parentSkills = mcMMO.p.getSkillTools().getChildSkillParents(skill);
 
             for (PrimarySkillType parentSkill : parentSkills) {
                 profile.addLevels(parentSkill, (levels / parentSkills.size()));
@@ -735,7 +736,7 @@ public final class ExperienceAPI {
         PrimarySkillType skill = getSkillType(skillType);
 
         if (SkillTools.isChildSkill(skill)) {
-            var parentSkills = mcMMO.p.getSkillTools().getChildSkillParents(skill);
+            ImmutableList<PrimarySkillType> parentSkills = mcMMO.p.getSkillTools().getChildSkillParents(skill);
 
             for (PrimarySkillType parentSkill : parentSkills) {
                 profile.addLevels(parentSkill, (levels / parentSkills.size()));

@@ -78,7 +78,8 @@ public class SwordsManager extends SkillManager {
         double ruptureOdds = mcMMO.p.getAdvancedConfig().getRuptureChanceToApplyOnHit(getRuptureRank());
         if (ProbabilityUtil.isStaticSkillRNGSuccessful(PrimarySkillType.SWORDS, this.getPlayer(), ruptureOdds)) {
 
-            if (target instanceof Player defender) {
+            if (target instanceof Player) {
+                Player defender = (Player)target;
 
                 //Don't start or add to a bleed if they are blocking
                 if(defender.isBlocking())

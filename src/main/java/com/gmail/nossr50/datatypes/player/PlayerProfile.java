@@ -163,7 +163,7 @@ public class PlayerProfile {
      * @deprecated This is only function for FlatFileDB atm, and it's only here for unit testing right now
      */
     public @NotNull Long getLastLogin() {
-        return Objects.requireNonNullElse(lastLogin, -1L);
+        return lastLogin != null ? lastLogin : -1L;
     }
 
     public void updateLastLogin() {
@@ -366,7 +366,7 @@ public class PlayerProfile {
         markProfileDirty();
 
         if (SkillTools.isChildSkill(skill)) {
-            var parentSkills = mcMMO.p.getSkillTools().getChildSkillParents(skill);
+            ImmutableList<PrimarySkillType> parentSkills = mcMMO.p.getSkillTools().getChildSkillParents(skill);
             float dividedXP = (xp / parentSkills.size());
 
             for (PrimarySkillType parentSkill : parentSkills) {

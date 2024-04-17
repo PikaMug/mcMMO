@@ -156,18 +156,19 @@ public class PartyCommand implements TabExecutor {
             return true;
         }
 
-        return switch (subcommand) {
-            case XPSHARE -> partyXpShareCommand.onCommand(sender, command, label, args);
-            case ITEMSHARE -> partyItemShareCommand.onCommand(sender, command, label, args);
-            case KICK -> partyKickCommand.onCommand(sender, command, label, args);
-            case DISBAND -> partyDisbandCommand.onCommand(sender, command, label, args);
-            case OWNER -> partyChangeOwnerCommand.onCommand(sender, command, label, args);
-            case LOCK, UNLOCK -> partyLockCommand.onCommand(sender, command, label, args);
-            case PASSWORD -> partyChangePasswordCommand.onCommand(sender, command, label, args);
-            case RENAME -> partyRenameCommand.onCommand(sender, command, label, args);
-            case ALLIANCE -> partyAllianceCommand.onCommand(sender, command, label, args);
-            default -> true;
-        };
+        switch (subcommand) {
+            case XPSHARE: partyXpShareCommand.onCommand(sender, command, label, args);
+            case ITEMSHARE: partyItemShareCommand.onCommand(sender, command, label, args);
+            case KICK: partyKickCommand.onCommand(sender, command, label, args);
+            case DISBAND: partyDisbandCommand.onCommand(sender, command, label, args);
+            case OWNER: partyChangeOwnerCommand.onCommand(sender, command, label, args);
+            case LOCK:
+            case UNLOCK: partyLockCommand.onCommand(sender, command, label, args);
+            case PASSWORD: partyChangePasswordCommand.onCommand(sender, command, label, args);
+            case RENAME: partyRenameCommand.onCommand(sender, command, label, args);
+            case ALLIANCE: partyAllianceCommand.onCommand(sender, command, label, args);
+            default: return true;
+        }
     }
 
     @Override

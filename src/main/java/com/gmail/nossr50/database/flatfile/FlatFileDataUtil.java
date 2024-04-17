@@ -29,7 +29,8 @@ public class FlatFileDataUtil {
         /*
          * First fix the bad data values if they exist
          */
-        if(dataContainer instanceof BadCategorizedFlatFileData badData) {
+        if(dataContainer instanceof BadCategorizedFlatFileData) {
+            BadCategorizedFlatFileData badData = (BadCategorizedFlatFileData)dataContainer;
             splitData = repairBadData(dataContainer.getSplitData(), badData.getBadDataIndexes());
         } else {
             splitData = dataContainer.getSplitData();

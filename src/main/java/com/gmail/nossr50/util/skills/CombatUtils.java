@@ -46,10 +46,12 @@ public final class CombatUtils {
     }
 
     public static boolean isDamageLikelyFromNormalCombat(@NotNull DamageCause damageCause) {
-        return switch (damageCause) {
-            case ENTITY_ATTACK, ENTITY_SWEEP_ATTACK, PROJECTILE -> true;
-            default -> false;
-        };
+        switch (damageCause) {
+            case ENTITY_ATTACK:
+            case ENTITY_SWEEP_ATTACK:
+            case PROJECTILE: return true;
+            default: return false;
+        }
     }
 
     public static boolean hasWeakenedDamage(@NotNull LivingEntity livingEntity) {
@@ -406,7 +408,8 @@ public final class CombatUtils {
             return;
         }
 
-        if (target instanceof Player player) {
+        if (target instanceof Player) {
+            Player player = (Player)target;
             if(ExperienceConfig.getInstance().isNPCInteractionPrevented()) {
                 if (Misc.isNPCEntityExcludingVillagers(target)) {
                     return;
@@ -437,8 +440,8 @@ public final class CombatUtils {
             }
         }
 
-        if (painSourceRoot instanceof Player player && entityType == EntityType.PLAYER) {
-
+        if (painSourceRoot instanceof Player && entityType == EntityType.PLAYER) {
+            Player player = (Player)painSourceRoot;
             if (!UserManager.hasPlayerDataKey(player)) {
                 return;
             }
@@ -504,17 +507,19 @@ public final class CombatUtils {
             Wolf wolf = (Wolf) painSource;
             AnimalTamer tamer = wolf.getOwner();
 
-            if (tamer instanceof Player master && mcMMO.p.getSkillTools().canCombatSkillsTrigger(PrimarySkillType.TAMING, target)) {
-
+            if (tamer instanceof Player && mcMMO.p.getSkillTools().canCombatSkillsTrigger(PrimarySkillType.TAMING, target)) {
+                Player master = (Player)tamer;
                 if (!Misc.isNPCEntityExcludingVillagers(master) && mcMMO.p.getSkillTools().doesPlayerHaveSkillPermission(master, PrimarySkillType.TAMING)) {
                     processTamingCombat(target, master, wolf, event);
                 }
             }
         }
-        else if (painSource instanceof Trident trident) {
+        else if (painSource instanceof Trident) {
+            Trident trident = (Trident)painSource;
             ProjectileSource projectileSource = trident.getShooter();
 
-            if (projectileSource instanceof Player player) {
+            if (projectileSource instanceof Player) {
+                Player player = (Player)projectileSource;
                 if (!Misc.isNPCEntityExcludingVillagers(player)) {
                     if(mcMMO.p.getSkillTools().canCombatSkillsTrigger(PrimarySkillType.TRIDENTS, target)) {
                         processTridentCombatRanged(trident, target, player, event);
@@ -522,10 +527,12 @@ public final class CombatUtils {
                 }
             }
         }
-        else if (painSource instanceof Arrow arrow) {
+        else if (painSource instanceof Arrow) {
+            Arrow arrow = (Arrow)painSource;
             ProjectileSource projectileSource = arrow.getShooter();
             boolean isCrossbow = arrow.isShotFromCrossbow();
-            if (projectileSource instanceof Player player) {
+            if (projectileSource instanceof Player) {
+                Player player = (Player)projectileSource;
 
                 if (!Misc.isNPCEntityExcludingVillagers(player)) {
                     if(!isCrossbow && mcMMO.p.getSkillTools().canCombatSkillsTrigger(PrimarySkillType.ARCHERY, target)) {
@@ -579,7 +586,8 @@ public final class CombatUtils {
      * @return the RAW damage bonus from Limit Break which is applied before reductions
      */
     public static int getLimitBreakDamage(@NotNull Player attacker, @NotNull LivingEntity defender, @NotNull SubSkillType subSkillType) {
-        if(defender instanceof Player playerDefender) {
+        if(defender instanceof Player) {
+            Player playerDefender = (Player)defender;
             return getLimitBreakDamageAgainstQuality(attacker, subSkillType, getArmorQualityLevel(playerDefender));
         } else {
             return getLimitBreakDamageAgainstQuality(attacker, subSkillType, 1000);
@@ -779,9 +787,10 @@ public final class CombatUtils {
             }
 
             if ((ExperienceConfig.getInstance().isNPCInteractionPrevented() && Misc.isNPCEntityExcludingVillagers(entity))
-                    || !(entity instanceof LivingEntity livingEntity) || !shouldBeAffected(attacker, entity)) {
+                    || !(entity instanceof LivingEntity) || !shouldBeAffected(attacker, entity)) {
                 continue;
             }
+            LivingEntity livingEntity = (LivingEntity)entity;
 
             //EventUtils.callFakeArmSwingEvent(attacker);
 
@@ -841,7 +850,8 @@ public final class CombatUtils {
         double baseXP = 0;
         XPGainReason xpGainReason;
 
-        if (target instanceof Player defender) {
+        if (target instanceof Player) {
+            Player defender = (Player)target;
             if (!ExperienceConfig.getInstance().getExperienceGainsPlayerVersusPlayerEnabled()
                     ||
                     (mcMMO.p.getPartyConfig().isPartyEnabled() && mcMMO.p.getPartyManager().inSameParty(mcMMOPlayer.getPlayer(), (Player) target))) {
@@ -923,7 +933,8 @@ public final class CombatUtils {
      * @return true if the Entity should be damaged, false otherwise.
      */
     private static boolean shouldBeAffected(@NotNull Player player, @NotNull Entity entity) {
-        if (entity instanceof Player defender) {
+        if (entity instanceof Player) {
+            Player defender = (Player)entity;
             //TODO: NPC Interaction?
             if(UserManager.getPlayer(defender) == null)
                 return true;
@@ -943,7 +954,8 @@ public final class CombatUtils {
             
             // Spectators should not be affected 
             return defender.getGameMode() != GameMode.SPECTATOR;
-        } else if (entity instanceof Tameable tameableEntity) {
+        } else if (entity instanceof Tameable) {
+            Tameable tameableEntity = (Tameable)entity;
             if (isFriendlyPet(player, tameableEntity)) {
                 // isFriendlyPet ensures that the Tameable is: Tamed, owned by a player, and the owner is in the same party
                 // So we can make some assumptions here, about our casting and our check
@@ -981,7 +993,8 @@ public final class CombatUtils {
         if (pet.isTamed()) {
             AnimalTamer tamer = pet.getOwner();
 
-            if (tamer instanceof Player owner) {
+            if (tamer instanceof Player) {
+                Player owner = (Player)tamer;
 
                 return (owner == attacker || mcMMO.p.getPartyManager().inSameParty(attacker, owner) || mcMMO.p.getPartyManager().areAllies(attacker, owner));
             }
@@ -1024,9 +1037,10 @@ public final class CombatUtils {
     }
 
     public static void handleHealthbars(@NotNull Entity attacker, @NotNull LivingEntity target, double damage, @NotNull mcMMO plugin) {
-        if (!(attacker instanceof Player player)) {
+        if (!(attacker instanceof Player)) {
             return;
         }
+        Player player = (Player)attacker;
 
         if (Misc.isNPCEntityExcludingVillagers(player) || Misc.isNPCEntityExcludingVillagers(target)) {
             return;

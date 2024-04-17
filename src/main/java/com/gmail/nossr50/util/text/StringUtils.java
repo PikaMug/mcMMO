@@ -109,7 +109,8 @@ public class StringUtils {
             case CARROTS:
             case POTATOES:
             case NETHER_WART: {
-                if (data instanceof Ageable ageData) {
+                if (data instanceof Ageable) {
+                    Ageable ageData = (Ageable)data;
                     if (ageData.getAge() == ageData.getMaximumAge()) {
                         return getPrettyItemString(data.getMaterial()).replace(" ", "_") + "_Ripe";
                     }

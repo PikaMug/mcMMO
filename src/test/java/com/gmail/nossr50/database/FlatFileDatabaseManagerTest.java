@@ -472,21 +472,21 @@ class FlatFileDatabaseManagerTest {
     }
 
     private long getExpectedSuperAbilityDATS(@NotNull SuperAbilityType superAbilityType) {
-        return switch (superAbilityType) {
-            case BERSERK -> expectedBerserkCd;
-            case SUPER_BREAKER -> expectedSuperBreakerCd;
-            case GIGA_DRILL_BREAKER -> expectedGigaDrillBreakerCd;
-            case GREEN_TERRA -> expectedGreenTerraCd;
-            case SKULL_SPLITTER -> expectedSkullSplitterCd;
-            case SUPER_SHOTGUN -> expectedSuperShotgunCd;
-            case TREE_FELLER -> expectedTreeFellerCd;
-            case SERRATED_STRIKES -> expectedSerratedStrikesCd;
-            case BLAST_MINING -> expectedBlastMiningCd;
-            case TRIDENTS_SUPER_ABILITY -> expectedTridentSuperCd;
-            case EXPLOSIVE_SHOT -> expectedExplosiveShotCd;
-            default -> throw new RuntimeException("Values not defined for super ability please add " +
+        switch (superAbilityType) {
+            case BERSERK: return expectedBerserkCd;
+            case SUPER_BREAKER: return expectedSuperBreakerCd;
+            case GIGA_DRILL_BREAKER: return expectedGigaDrillBreakerCd;
+            case GREEN_TERRA: return expectedGreenTerraCd;
+            case SKULL_SPLITTER: return expectedSkullSplitterCd;
+            case SUPER_SHOTGUN: return expectedSuperShotgunCd;
+            case TREE_FELLER: return expectedTreeFellerCd;
+            case SERRATED_STRIKES: return expectedSerratedStrikesCd;
+            case BLAST_MINING: return expectedBlastMiningCd;
+            case TRIDENTS_SUPER_ABILITY: return expectedTridentSuperCd;
+            case EXPLOSIVE_SHOT: return expectedExplosiveShotCd;
+            default: throw new RuntimeException("Values not defined for super ability please add " +
                     "values for " + superAbilityType.toString() + " to the test");
-        };
+        }
 
     }
 

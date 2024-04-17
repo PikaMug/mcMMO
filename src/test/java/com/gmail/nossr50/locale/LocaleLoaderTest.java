@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,7 +68,7 @@ class LocaleLoaderTest {
         // TODO: Hacky, clean this up sometime in the future
         // Then
         // All legal representations of the same string
-        final List<String> expectedResults = List.of("§x§F§F§0§0§0§0Te§x§0§0§0§0§F§Fst",
+        final List<String> expectedResults = Arrays.asList("§x§F§F§0§0§0§0Te§x§0§0§0§0§F§Fst",
                 "§x§F§F§0§0§0§0Te§x§0§0§0§0§F§Fst",
                 "§x§F§F§0§0§0§0Te§cst",
                 "§9Te§cst");

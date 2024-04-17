@@ -187,18 +187,20 @@ public class SkillTools {
     }
 
     private @NotNull PrimarySkillType getSuperAbilityParent(SuperAbilityType superAbilityType) throws InvalidSkillException {
-        return switch (superAbilityType) {
-            case BERSERK -> PrimarySkillType.UNARMED;
-            case GREEN_TERRA -> PrimarySkillType.HERBALISM;
-            case TREE_FELLER -> PrimarySkillType.WOODCUTTING;
-            case SUPER_BREAKER, BLAST_MINING -> PrimarySkillType.MINING;
-            case SKULL_SPLITTER -> PrimarySkillType.AXES;
-            case SERRATED_STRIKES -> PrimarySkillType.SWORDS;
-            case GIGA_DRILL_BREAKER -> PrimarySkillType.EXCAVATION;
-            case SUPER_SHOTGUN -> PrimarySkillType.CROSSBOWS;
-            case TRIDENTS_SUPER_ABILITY -> PrimarySkillType.TRIDENTS;
-            case EXPLOSIVE_SHOT -> PrimarySkillType.ARCHERY;
-        };
+        switch (superAbilityType) {
+            case BERSERK: return PrimarySkillType.UNARMED;
+            case GREEN_TERRA: return PrimarySkillType.HERBALISM;
+            case TREE_FELLER: return PrimarySkillType.WOODCUTTING;
+            case SUPER_BREAKER:
+            case BLAST_MINING: return PrimarySkillType.MINING;
+            case SKULL_SPLITTER: return PrimarySkillType.AXES;
+            case SERRATED_STRIKES: return PrimarySkillType.SWORDS;
+            case GIGA_DRILL_BREAKER: return PrimarySkillType.EXCAVATION;
+            case SUPER_SHOTGUN: return PrimarySkillType.CROSSBOWS;
+            case TRIDENTS_SUPER_ABILITY: return PrimarySkillType.TRIDENTS;
+            case EXPLOSIVE_SHOT: return PrimarySkillType.ARCHERY;
+            default: return PrimarySkillType.SALVAGE;
+        }
     }
 
     /**
@@ -337,10 +339,11 @@ public class SkillTools {
 
     // TODO: This is a little "hacky", we probably need to add something to distinguish child skills in the enum, or to use another enum for them
     public static boolean isChildSkill(PrimarySkillType primarySkillType) {
-        return switch (primarySkillType) {
-            case SALVAGE, SMELTING -> true;
-            default -> false;
-        };
+        switch (primarySkillType) {
+            case SALVAGE:
+            case SMELTING: return true;
+            default: return false;
+        }
     }
 
     /**
@@ -430,13 +433,9 @@ public class SkillTools {
     public @NotNull ImmutableList<PrimarySkillType> getChildSkillParents(PrimarySkillType childSkill)
             throws IllegalArgumentException {
         switch (childSkill) {
-            case SALVAGE -> {
-                return SALVAGE_PARENTS;
-            }
-            case SMELTING -> {
-                return SMELTING_PARENTS;
-            }
-            default -> throw new IllegalArgumentException("Skill " + childSkill + " is not a child skill");
+            case SALVAGE: return SALVAGE_PARENTS;
+            case SMELTING: return SMELTING_PARENTS;
+            default: throw new IllegalArgumentException("Skill " + childSkill + " is not a child skill");
         }
     }
 }

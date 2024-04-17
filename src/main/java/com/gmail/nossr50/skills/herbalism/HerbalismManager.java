@@ -82,7 +82,8 @@ public class HerbalismManager extends SkillManager {
                 mmoPlayer.getPlayer().sendMessage("Processing sweet berry bush rewards");
             }
             //Check the age
-            if(blockState.getBlockData() instanceof Ageable ageable) {
+            if(blockState.getBlockData() instanceof Ageable) {
+                Ageable ageable = (Ageable)blockState.getBlockData();
                 int rewardByAge = 0;
 
                 if(ageable.getAge() == 2) {
@@ -126,7 +127,8 @@ public class HerbalismManager extends SkillManager {
             BlockState blockState = block.getState();
 
             if(blockState.getType().toString().equalsIgnoreCase("sweet_berry_bush")) {
-                if(blockState.getBlockData() instanceof Ageable ageable) {
+                if(blockState.getBlockData() instanceof Ageable) {
+                    Ageable ageable = (Ageable)blockState.getBlockData();
 
                     if(ageable.getAge() <= 1) {
                         applyXpGain(xpReward, XPGainReason.PVE, XPGainSource.SELF);
@@ -210,7 +212,8 @@ public class HerbalismManager extends SkillManager {
         }
 
         //Check if the plant was recently replanted
-        if(block.getBlockData() instanceof Ageable ageableCrop) {
+        if(block.getBlockData() instanceof Ageable) {
+            Ageable ageableCrop = (Ageable)block.getBlockData();
             if(block.getMetadata(MetadataConstants.METADATA_KEY_REPLANT).size() >= 1) {
                 if(block.getMetadata(MetadataConstants.METADATA_KEY_REPLANT).get(0).asBoolean()) {
                     if(isAgeableMature(ageableCrop)) {
@@ -342,7 +345,8 @@ public class HerbalismManager extends SkillManager {
                  */
 
                 //Not all things that are natural should give double drops, make sure its fully mature as well
-                if(plantData instanceof Ageable ageable) {
+                if(plantData instanceof Ageable) {
+                    Ageable ageable = (Ageable)plantData;
 
                     if(isAgeableMature(ageable) || isBizarreAgeable(plantData)) {
                         if(checkDoubleDrop(brokenPlantState)) {
@@ -378,10 +382,13 @@ public class HerbalismManager extends SkillManager {
     public boolean isBizarreAgeable(BlockData blockData) {
         if(blockData instanceof Ageable) {
             //Catcus and Sugar Canes cannot be trusted
-            return switch (blockData.getMaterial()) {
-                case CACTUS, KELP, SUGAR_CANE, BAMBOO -> true;
-                default -> false;
-            };
+            switch (blockData.getMaterial()) {
+                case CACTUS:
+                case KELP:
+                case SUGAR_CANE:
+                case BAMBOO: return true;
+                default: return false;
+            }
         }
 
         return false;
@@ -433,8 +440,8 @@ public class HerbalismManager extends SkillManager {
                  */
 
                 //Calculate XP
-                if(plantData instanceof Ageable plantAgeable) {
-
+                if(plantData instanceof Ageable) {
+                    Ageable plantAgeable = (Ageable)plantData;
                     if(isAgeableMature(plantAgeable) || isBizarreAgeable(plantData)) {
                         xpToReward += ExperienceConfig.getInstance().getXp(PrimarySkillType.HERBALISM, brokenBlockNewState.getType());
                     }
@@ -753,9 +760,10 @@ public class HerbalismManager extends SkillManager {
 
         BlockData blockData = blockState.getBlockData();
 
-        if (!(blockData instanceof Ageable ageable)) {
+        if (!(blockData instanceof Ageable)) {
             return false;
         }
+        Ageable ageable = (Ageable)blockData;
 
         //If the ageable is NOT mature and the player is NOT using a hoe, abort
 

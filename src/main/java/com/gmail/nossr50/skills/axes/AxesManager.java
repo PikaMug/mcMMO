@@ -93,7 +93,8 @@ public class AxesManager extends SkillManager {
             NotificationManager.sendPlayerInformation(player, NotificationType.SUBSKILL_MESSAGE, "Axes.Combat.CriticalHit");
         }
 
-        if (target instanceof Player defender) {
+        if (target instanceof Player) {
+            Player defender = (Player)target;
 
             if (NotificationManager.doesPlayerUseNotifications(defender)) {
                 NotificationManager.sendPlayerInformation(defender, NotificationType.SUBSKILL_MESSAGE, "Axes.Combat.CritStruck");
@@ -149,8 +150,8 @@ public class AxesManager extends SkillManager {
             NotificationManager.sendPlayerInformation(player, NotificationType.SUBSKILL_MESSAGE, "Axes.Combat.GI.Proc");
         }
 
-        if (target instanceof Player defender) {
-
+        if (target instanceof Player) {
+            Player defender = (Player)target;
             if (NotificationManager.doesPlayerUseNotifications(defender)) {
                 NotificationManager.sendPlayerInformation(defender, NotificationType.SUBSKILL_MESSAGE, "Axes.Combat.GI.Struck");
             }

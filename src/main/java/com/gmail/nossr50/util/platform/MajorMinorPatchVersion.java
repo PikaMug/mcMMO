@@ -31,8 +31,7 @@ public abstract class MajorMinorPatchVersion implements Versioned {
     public MajorMinorPatchVersion(@NotNull SimpleNumericVersion majorVersion, @NotNull SimpleNumericVersion minorVersion, @Nullable SimpleNumericVersion patchVersion) {
         this.majorVersion = majorVersion;
         this.minorVersion = minorVersion;
-
-        this.patchVersion = Objects.requireNonNullElseGet(patchVersion, () -> new SimpleNumericVersion(0));
+        this.patchVersion = patchVersion != null ? patchVersion : new SimpleNumericVersion(0);
     }
 
     public MajorMinorPatchVersion(int majorVerNumber, int minorVerNumber, int patchVerNumber) {
